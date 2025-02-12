@@ -24,6 +24,40 @@ O(KlogK)+O(NKlogK)=O(NKlogK)
 Since O(NK \log K) dominates O(K \log K), the final time complexity of the algorithm is:
 O(NKlogK)
 
+# Ways to Improve the Implementation
+# Use a Min-Heap with a Custom Object (Tuple is Fine but Can Be More Efficient)
+
+Currently, we use a tuple (value, array_index, element_index) in the heap. While Python handles this well, using a lightweight named tuple or a small custom object can slightly optimize memory usage and readability.
+
+# Use Itertools' heapq.merge() for Simplicity
+
+Python provides heapq.merge(), which can merge multiple sorted iterables efficiently.
+This eliminates the need to manually push and pop from a heap.
+
+Time Complexity: Still O(NK log K) but with less manual heap management.
+
+# Reduce Heap Size by Merging in Pairs (Divide & Conquer)
+
+Instead of merging all arrays at once, merge them in pairs, reducing the effective heap operations.
+Steps:
+Merge two arrays at a time.
+Push merged arrays back into the heap.
+This reduces the number of heap operations and balances the load.
+Time Complexity: Still O(NK log K) but improves practical performance.
+
+# Use Multi-threading for Parallel Processing (For Large Inputs)
+
+If K is large, parallelizing the merge process across threads/processes can speed up execution.
+Example: Use multiprocessing.Pool to merge sub-arrays in parallel.
+
+# Optimize Heap Operations Using a Binary Index Tree or Fibonacci Heap
+
+While heapq is efficient, Fibonacci heaps offer a faster amortized time complexity for insertions.
+This can be useful for extremely large K.
+
+
+
+
 # Time Complexity (Processing All Arrays) - Duplicates Array 
 remove_duplicates(arr) Function
 dict.fromkeys(arr):
